@@ -1,20 +1,23 @@
 # ember-addon-state-bucket
 
-This is an experiment to save state between Ember-CLI addons, using Node's
-global process `EventEmitter`. It listens for a small set of namespaced events that
-can `set`, `get` and `push` state to that global process.
+This is an experiment to save state between Ember-CLI addons, using the
+[node-persist](https://github.com/simonlast/node-persist) package.
 
-Currently the event namespace is simply the addon name combined with the action being performed, meaning persisting state is as simple as:
+This addon simply initializes the storage and assigns it to a property on the global process
+(`process.emberAddonStateBucket`).
 
-```js
-process.emit('ember-addon-state-bucket:set', 'my-important-state', {});
-```
-
-Reading that state later is as simple as:
+To save state, simply call:
 
 ```js
-process.emit('ember-addon-state-bucket:get', 'my-important-state');
+process.emberAddonStateBucket.setItemSync('key', 'value');
 ```
+
+To read out the state, you can call:
+
+```js
+process.emberAddonStateBucket.getItemSync('key');
+```
+
 
 NOTE: Other addons wishing to use this must be configured to run *after* this one in the `ember-addon` config section of their `package.json`.
 
