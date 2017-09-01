@@ -5,27 +5,26 @@ module.exports = {
   name: 'ember-addon-state-bucket',
 
   included() {
-    console.log('include from ember-addon-state-bucket');
-    this.emberAddonStateBucket = { state: {} };
-    process.on('ember-addon-state-bucket:getState', (key) => {
-      console.log('requested state:', key);
-      console.log('state:', this.emberAddonStateBucket.state[key]);
-      return this.emberAddonStateBucket.state[key];
+    this.emberAddonStateBucket = {
+      state: {}
+    };
+
+    process.on('ember-addon-state-bucket:get', (key) => {
+      let { state } = this.emberAddonStateBucket;
+      return state[key];
     });
 
-    process.on('ember-addon-state-bucket:setState', (key, value) => {
-      // default to object
-      console.log('setting state:', { key, value });
-      return this.emberAddonStateBucket.state[key] = value;
+    process.on('ember-addon-state-bucket:set', (key, value) => {
+      let { state } = this.emberAddonStateBucket;
+      return state[key] = value;
     });
 
-    process.on('ember-addon-state-bucket:pushState', (key, value) => {
-      if (this.emberAddonStateBucket.state[key] instanceof Array) {
-        console.log('appending state:', { key, value });
-        return this.emberAddonStateBucket.state[key].push(value);
-      } else if (this.emberAddonStateBucket.state[key] instanceof Set) {
-        console.log('appending state:', { key, value });
-        return this.emberAddonStateBucket.state[key].add(value);
+    process.on('ember-addon-state-bucket:push', (key, value) => {
+      let { state } = this.emberAddonStateBucket;
+      if (state[key] instanceof Array) {
+        return state[key].push(value);
+      } else if (state[key] instanceof Set) {
+        return state[key].add(value);
       }
     });
   },
