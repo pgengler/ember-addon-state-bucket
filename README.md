@@ -16,6 +16,8 @@ Reading that state later is as simple as:
 process.emit('ember-addon-state-bucket:get', 'my-important-state');
 ```
 
+NOTE: Other addons wishing to use this must be configured to run *after* this one in the `ember-addon` config section of their `package.json`.
+
 ## Installation
 
 * `git clone <repository-url>` this repository
