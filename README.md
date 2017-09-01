@@ -11,6 +11,7 @@ To save state, simply call:
 ```js
 process.emberAddonStateBucket.setItemSync('key', 'value');
 ```
+Because node-persist uses JSON to store the data, only valid JSON values can be persisted.
 
 To read out the state, you can call:
 
@@ -18,14 +19,16 @@ To read out the state, you can call:
 process.emberAddonStateBucket.getItemSync('key');
 ```
 
-
-NOTE: Other addons wishing to use this must be configured to run *after* this one in the `ember-addon` config section of their `package.json`.
-
 ## Installation
 
 * `git clone <repository-url>` this repository
 * `cd ember-addon-state-bucket`
 * `npm install`
+
+## Configuration
+
+Other addons wishing to use this must be configured to run *after* this one in the `ember-addon` config section of their `package.json`.
+
 
 ## Running
 
