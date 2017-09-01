@@ -3,7 +3,7 @@
 This is an experiment to save state between Ember-CLI addons, using the
 [node-persist](https://github.com/simonlast/node-persist) package.
 
-This addon simply initializes the storage and assigns it to a property on the global process
+This addon simply initializes the storage and assigns it to a property on the global build process
 (`process.emberAddonStateBucket`).
 
 To save state, simply call:
